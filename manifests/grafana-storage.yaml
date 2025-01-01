@@ -1,0 +1,31 @@
+# Using a storage class, STATUS for the PVC was not moving to Bound.
+# $ kubectl get pvc -n devops-tools stuck at pending.
+
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: grafana-pv
+  namespace: devops-tools
+  labels:
+    type: local
+spec:                         
+  storageClassName: manual   
+  capacity:                  
+    storage: 30Gi             
+  accessModes:                
+    - ReadWriteOnce  
+  hostPath:                  
+    path: "/mnt/data" 
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: grafana-pvc
+  namespace: devops-tools
+spec:
+  storageClassName: manual
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 20Gi 

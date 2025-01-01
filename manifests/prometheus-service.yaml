@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: prometheus-svc
+  namespace: observability
+spec:
+  type: NodePort
+  ports:
+  - port: 9090
+    targetPort: 9090
+    nodePort: 30090   # Using NodePort to enable access to the service from external
+  selector:
+    app.kubernetes.io/name: prometheus

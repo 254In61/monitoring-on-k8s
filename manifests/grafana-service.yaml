@@ -1,0 +1,17 @@
+# to route service to outside world
+# In the above YAML file, you define your NodePort Service and then expose port 8080 of the grafana pod to port 30000.
+apiVersion: v1
+kind: Service
+metadata:
+  name: grafana-svc
+  namespace: devops-tools
+spec:
+  type: NodePort 
+  selector:
+    app: grafana
+  ports:
+    - port: 3000
+      targetPort: 3000
+      nodePort: 31000
+  selector:
+    app: grafana
